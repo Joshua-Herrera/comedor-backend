@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Sopa de Frijoles",
+        "price": 1.5
+    },
+    {
+        "id": 2,
+        "name": "Pollo Frito",
+        "price": 1.5,
+        "ingridients": [
+            "Pierna de pollo",
+            "Ensalada",
+            "Arroz"
+        ]
+    }
+]
