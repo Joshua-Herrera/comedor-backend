@@ -6,6 +6,7 @@ const factory = require('./controllerFactory');
 exports.getAllBills = factory.getAll(Bill);
 
 exports.getOrders = catchAsync(async (req, res) => {
+  // console.log(req.body)
   //Count total of records for pagination
   const totalRecords = await Bill.aggregate([
     {
@@ -77,7 +78,9 @@ exports.getOwnedOrders = catchAsync(async (req, res) => {
 
   // const records = await features.query;
 
-  const records = await Bill.find({ user: req.body.id }).where(req.query.status).equals(req.query.ifValue).populate({ path: 'dishes' })
+  const records = await Bill.find({ user: req.body.id }).populate({ path: 'dishes' })
+
+  // console.log(records)
 
   res.status(200).json({
     status: 'success',

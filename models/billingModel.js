@@ -49,6 +49,15 @@ billingSchema.virtual('dishes', {
   localField: '_id',
 });
 
+billingSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'user',
+    select: 'name tn',
+  });
+
+  next();
+});
+
 const Bill = mongoose.model('Bill', billingSchema);
 
 module.exports = Bill;

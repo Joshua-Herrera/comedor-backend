@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, 'Por favor ingrese un correo valido'],
   },
+  tn: {
+    type: String,
+    validate: [validator.isMobilePhone, 'Por favor ingrese un correo valido'],
+  },
   photo: String,
   password: {
     type: String,
