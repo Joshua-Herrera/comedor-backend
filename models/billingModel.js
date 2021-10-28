@@ -35,6 +35,7 @@ const billingSchema = new mongoose.Schema(
       type: String,
       default: 'Completed',
     },
+    isPaid: { type: Boolean, default: false },
   },
   {
     toJSON: { virtuals: true },

@@ -11,6 +11,7 @@ const billRouter = require('./routes/billingRoutes');
 const productsRouter = require('./routes/productRoutes');
 const expensesRouter = require('./routes/expensesRoutes');
 const paramsRouter = require('./routes/paramsRoutes');
+const paymentRouter = require('./routes/paymentRoutes');
 const statsRouter = require('./routes/statsRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
@@ -64,6 +65,7 @@ app.use('/api/v1/bills', billRouter);
 app.use('/api/v1/products', productsRouter);
 app.use('/api/v1/expenses', expensesRouter);
 app.use('/api/v1/stats', statsRouter);
+app.use('/api/v1/payment', paymentRouter);
 app.use('/api/v1/params', paramsRouter);
 //Handler for not valid URLs/routes
 app.all('*', (req, res, next) => {
