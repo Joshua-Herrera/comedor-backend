@@ -28,7 +28,6 @@ exports.checkout = catchAsync(async (req, res, next) => {
         payment_method_types: [
             "card",
         ],
-        success_url: "http://http://localhost:3000/orders/Pending",
     });
 
     res.send({

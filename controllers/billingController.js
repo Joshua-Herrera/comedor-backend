@@ -20,21 +20,8 @@ exports.getOrders = catchAsync(async (req, res) => {
     },
   ]);
 
-  const filter = {status: req.query.ifValue};
+  const filter = { status: req.query.ifValue };
 
-  //Executing query
-  // const features = new APIFeatures(
-  //   Bill.find(filter),
-  //   req.query,
-  //   Bill
-  // )
-  //   .filter()
-  //   .sort()
-  //   .limitFields()
-  //   .paginate();
-  // features.query = features.query.populate({ path: 'dishes' });
-  // const records = await features.query;
-  
   const records = await Bill.find().where(req.query.status).equals(req.query.ifValue).populate({ path: 'dishes' })
   // console.log(filter)
 
@@ -62,23 +49,7 @@ exports.getOwnedOrders = catchAsync(async (req, res) => {
     },
   ]);
 
-  // //Executing query
-  // const features = new APIFeatures(
-  //   Bill.find({ user: req.body.id })
-  //     .where(`${req.body.status}`)
-  //     .equals(req.body.ifValue),
-  //   req.query,
-  //   Bill
-  // )
-  //   .filter()
-  //   .sort()
-  //   .limitFields()
-  //   .paginate();
-  // features.query = features.query.populate({ path: 'dishes' });
-
-  // const records = await features.query;
-
-  const records = await Bill.find({ user: req.body.id }).populate({ path: 'dishes' })
+  const records = await Bill.find({ user: req.body.id }).where(req.body.status).equals(req.body.ifValue).populate({ path: 'dishes' })
 
   // console.log(records)
 
