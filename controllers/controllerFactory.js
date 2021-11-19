@@ -6,7 +6,7 @@ const { query } = require('express');
 //Get the all records
 exports.getAll = (Model, popOptions) =>
   catchAsync(async (req, res) => {
-    // console.log(req.query)
+    // console.log(Model);
     let filter = {};
     if (req.params.parentId) filter = { dish: req.params.parentId };
 
@@ -18,7 +18,6 @@ exports.getAll = (Model, popOptions) =>
       .paginate();
     if (popOptions) features.query = features.query.populate(popOptions);
     const records = await features.query;
-
     //Count total of records for pagination
     const total = await Model.aggregate([
       {
@@ -75,7 +74,7 @@ exports.addOne = (Model) =>
 //Update an element of the menu
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    // console.log(req.body);
+    // console.log(req.body, 'id: ' + req.params.id);
     const record = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -84,7 +83,7 @@ exports.updateOne = (Model) =>
     if (!record) {
       return next(new AppError('No document found with that ID', 404));
     }
-
+    // console.log(record);
     res.status(200).json({
       status: 'success',
       record,

@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
   },
   tn: {
     type: String,
-    validate: [validator.isMobilePhone, 'Por favor ingrese un correo valido'],
+    maxlength: [8, 'El telefono debe tener 8 digitos'],
   },
   photo: String,
   password: {
@@ -49,6 +49,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     select: false,
+  },
+  canBorrow: {
+    type: Boolean,
+    default: false,
   },
 });
 

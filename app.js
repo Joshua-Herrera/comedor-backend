@@ -10,6 +10,7 @@ const reviewRouter = require('./routes/reviewRoutes');
 const billRouter = require('./routes/billingRoutes');
 const productsRouter = require('./routes/productRoutes');
 const expensesRouter = require('./routes/expensesRoutes');
+const counterRouter = require('./routes/counterRoutes');
 const paramsRouter = require('./routes/paramsRoutes');
 const paymentRouter = require('./routes/paymentRoutes');
 const statsRouter = require('./routes/statsRoutes');
@@ -67,6 +68,8 @@ app.use('/api/v1/expenses', expensesRouter);
 app.use('/api/v1/stats', statsRouter);
 app.use('/api/v1/payment', paymentRouter);
 app.use('/api/v1/params', paramsRouter);
+app.use('/api/v1/counter', counterRouter);
+app.use('/', (req, res) => res.status(200).json({ msg: 'Welcome to the API' }));
 //Handler for not valid URLs/routes
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

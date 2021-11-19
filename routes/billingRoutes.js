@@ -19,6 +19,13 @@ router
     billingController.addOneBill
   );
 
+//pay bill
+router
+  .route('/payment')
+  .get(
+    billingController.updatePayment
+  );
+
 //Sub routes for pending orders
 router
   .route('/orders')
@@ -59,7 +66,7 @@ router
   )
   .patch(
     authController.protect,
-    authController.restrictTo('admin'),
+    authController.restrictTo('admin', 'helper', 'user'),
     billingController.updateBill
   )
   .delete(

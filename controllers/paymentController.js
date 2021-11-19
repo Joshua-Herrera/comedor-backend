@@ -6,11 +6,7 @@ const catchAsync = require('./../utils/catchAsync');
 
 
 exports.checkout = catchAsync(async (req, res, next) => {
-
-    // const cart = await Dish.find({ '_id': { $in: req.body.ids } })
-
-    // console.log(cart)
-
+    // console.log(req.body);
     const calculateOrderAmount = (items) => {
         let total = 0;
         items.map(el => {
@@ -19,17 +15,22 @@ exports.checkout = catchAsync(async (req, res, next) => {
         return total;
     };
 
-    // console.log(req.body.ids)
+    if (!Array.isArray(req.body.ids)) {
+        req.body.ids = [req.body.ids];
+    }
 
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
         amount: calculateOrderAmount(await Dish.find({ '_id': { $in: Object.values(req.body.ids) } })) * 100,
         currency: "usd",
+        // customer: req.body.customer,
+        receipt_email: `${req.body.receipt_email}`,
+        description: `Comedor Buen Amanecer pago anombre de ${req.body.customer} / ${req.body.receipt_email} por ${req.body.description}`,
         payment_method_types: [
             "card",
         ],
     });
-
+    // console.log(paymentIntent);
     res.send({
         clientSecret: paymentIntent.client_secret,
     });

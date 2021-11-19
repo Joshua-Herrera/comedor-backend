@@ -60,6 +60,24 @@ exports.getOwnedOrders = catchAsync(async (req, res) => {
   });
 });
 
+exports.updatePayment = catchAsync(async (req, res, next) => {
+  console.log(req.body);
+
+  const record = await Bill.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!record) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    record,
+  });
+});
+
 exports.getOneBill = factory.getOne(Bill);
 exports.setParentIDs = (req, res, next) => {
   //Allow nested routes

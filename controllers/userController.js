@@ -40,13 +40,16 @@ exports.updateUser = factory.updateOne(User);
 
 //Get one element
 exports.getbalance = catchAsync(async (req, res) => {
-    
-    let query = User.findById(req.params.id).select('balance');
 
-    const record = await query;
+  let query = User.findById(req.params.id).select('balance');
 
-    res.status(200).json({
-      status: 'success',
-      record,
-    });
+  const record = await query;
+
+  res.status(200).json({
+    status: 'success',
+    record,
   });
+});
+
+//Get all users
+exports.getAllUsers = factory.getAll(User);
