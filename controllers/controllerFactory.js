@@ -56,14 +56,17 @@ exports.getOne = (Model, popOptions) =>
 exports.addOne = (Model) =>
   catchAsync(async (req, res) => {
     // console.log(req.body);
-    let today = new Date();
-    req.body.createdAt = today
-      .toISOString()
-      .split('T')[0]
-      .split('-')
-      .reverse()
-      .join('-');
-    req.body.dayTime = `${today.getHours()}:${today.getMinutes()}`;
+    if (!req.body.createdAt) {
+      let today = new Date();
+      req.body.createdAt = today
+        .toISOString()
+        .split('T')[0]
+        .split('-')
+        .reverse()
+        .join('-');
+      req.body.dayTime = `${today.getHours()}:${today.getMinutes()}`;
+    }
+
     const record = await Model.create(req.body);
     res.status(201).json({
       status: 'success',
