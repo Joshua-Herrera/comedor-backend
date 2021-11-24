@@ -75,13 +75,14 @@ exports.selledDishesPerDay = catchAsync(async (req, res, next) => {
       $project: {
         createdDate: '$createdAt',
         day: '$day',
+        totalDishes: '$totalDishes'
       }
     },
     {
       $group: {
         _id: '$createdDate',
         day: { $first: '$day' },
-        total: { $sum: 1 },
+        total: { $sum: '$totalDishes' },
       },
     },
     {
